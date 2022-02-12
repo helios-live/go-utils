@@ -2,7 +2,9 @@
 
 Some simple utilities that make life simpler when developing with go
 
-### utils.Time: A more human readable version of time.Time
+### utils.Time: 
+A more human readable version of time.Time
+
 ```go
 package main
 

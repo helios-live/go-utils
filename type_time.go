@@ -10,7 +10,7 @@ type Time struct {
 }
 
 // MarshalJSON as the name implies
-func (pt *Time) MarshalJSON() ([]byte, error) {
+func (pt Time) MarshalJSON() ([]byte, error) {
 	b := []byte("\"" + pt.Time.Format("2006-01-02 15:04:05") + "\"")
 	return b, nil
 }

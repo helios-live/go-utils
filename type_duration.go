@@ -13,15 +13,19 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON .
-func (d *Duration) UnmarshalJSON(b []byte) error {
-	s := string(b)
-	s = s[1 : len(s)-1]
-	t, err := time.ParseDuration(s)
+func (d *Duration) UnmarshalText(b []byte) error {
+
+	t, err := time.ParseDuration(string(b))
 	if err != nil {
 		return err
 	}
 	d.Duration = t
 	return nil
+}
+
+// UnmarshalJSON .
+func (d *Duration) UnmarshalJSON(b []byte) error {
+	return d.UnmarshalText(b[1 : len(b)-1])
 }
 
 // Adds parses d2 and adds the duration to d

@@ -1,6 +1,10 @@
 package utils
 
-import "time"
+import (
+	"database/sql/driver"
+	"errors"
+	"time"
+)
 
 // Duration represents a duration
 type Duration struct {
@@ -51,4 +55,34 @@ func ParseDuration(str string) (Duration, error) {
 // SubZero returns true if the underlying duration is negative
 func (d *Duration) SubZero() bool {
 	return d.Duration < 0
+}
+
+func (d *Duration) Scan(value interface{}) error {
+	// if value is nil, false
+	if value == nil {
+		// set the value of the pointer yne to YesNoEnum(false)
+		*d = Duration{0}
+		return nil
+	}
+	if bv, err := driver.String.ConvertValue(value); err == nil {
+		// if this is a bool type
+		if v, ok := bv.(string); ok {
+
+			r, err := ParseDuration(v)
+			if err != nil {
+				return err
+			}
+			// set the value of the pointer yne to YesNoEnum(v)
+			*d = r
+			return nil
+		}
+	}
+	// otherwise, return an error
+	return errors.New("failed to scan Duration")
+}
+func (d *Duration) Value() (driver.Value, error) {
+	if d.Duration == 0 {
+		return "0", nil
+	}
+	return d.String(), nil
 }

@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/ideatocode/go-utils"
+	"github.com/helios-live/go-utils"
 	"github.com/stretchr/testify/assert"
 )
 

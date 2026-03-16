@@ -1,4 +1,4 @@
-module github.com/ideatocode/go-utils
+module github.com/helios-live/go-utils/v2
 
 go 1.17
 
